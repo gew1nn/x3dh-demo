@@ -1,0 +1,14 @@
+{
+  "bob": {
+    "bundle": {
+      "ik": "ffd7786130ea324768e259889d2879fe77d7bd09bbdb6eb30afedc500653e66f",
+      "spk": "f8e4d9fd6376a2fa00d462c59563dc40ef17449beeb55c94a504f1a87daf630f",
+      "otk": "8fbe77130006a79056aa61e7798fa1aa4cdf9e4f90e7106f4df0c6a341b1ee59",
+      "ed25519": "04c0dc13f6fca37a9650ee7040beba67918abb66aaff456527478a5433076ae4",
+      "sig": "85d7689f22d46043d516f3bf730a5adf1a970e9ad3c8c39076e13f640ef6a2a2a6659c8c0f3562a6853ecf565d35da77215f25e7b34ed987db2794be36153207"
+    },
+    "created_at": "2025-06-22T15:37:34.871099771+02:00",
+    "updated_at": "2025-06-22T16:45:02.718206338+02:00",
+    "user_id": "bob"
+  }
+}

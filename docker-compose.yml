@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # X3DH Server - Central message broker
+  x3dh-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: x3dh-protocol:latest
+    container_name: x3dh-server
+    command: ["./server"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - x3dh-data:/app/data
+      - ./config:/app/config
+    environment:
+      - X3DH_LOW_MEMORY=true
+      - X3DH_ENABLE_LOGGING=true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - x3dh-network
+
+  # Alice Client (Initiator) - Example deployment
+  alice-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: x3dh-protocol:latest
+    container_name: x3dh-alice
+    command: ["./alice"]
+    volumes:
+      - alice-keys:/app/keys
+      - ./config:/app/config
+    environment:
+      - X3DH_SERVER_HOST=x3dh-server
+      - X3DH_SERVER_PORT=8080
+      - X3DH_LOW_MEMORY=true
+    depends_on:
+      x3dh-server:
+        condition: service_healthy
+    restart: "no"  # Run once for demo
+    networks:
+      - x3dh-network
+
+  # Bob Client (Responder) - Example deployment
+  bob-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: x3dh-protocol:latest
+    container_name: x3dh-bob
+    command: ["./bob", "-action=register"]
+    volumes:
+      - bob-keys:/app/keys
+      - ./config:/app/config
+    environment:
+      - X3DH_SERVER_HOST=x3dh-server
+      - X3DH_SERVER_PORT=8080
+      - X3DH_LOW_MEMORY=true
+    depends_on:
+      x3dh-server:
+        condition: service_healthy
+    restart: "no"  # Run once for demo
+    networks:
+      - x3dh-network
+
+volumes:
+  x3dh-data:
+    driver: local
+  alice-keys:
+    driver: local
+  bob-keys:
+    driver: local
+
+networks:
+  x3dh-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 
