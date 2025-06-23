@@ -96,38 +96,6 @@ The project consists of three independent components:
 - **Persistent Keys**: Bob's long-term identity keys are saved locally, simulating a real device
 - **Simplified One-Time Pre-key (OTK) Management**: For this demo, Bob generates and registers a single OTK. In a full production system, he would upload a large batch of OTKs
 
-## **X3DH Protocol Flow**
-
-```
-Alice (Initiator)                    Server                    Bob (Responder)
-     |                                  |                           |
-     | 1. Fetch Bob's bundle            |                           |
-     |--------------------------------->|                           |
-     |                                  |                           |
-     | 2. Bundle with IK, SPK, OTK      |                           |
-     |<---------------------------------|                           |
-     |                                  |                           |
-     | 3. Verify SPK signature          |                           |
-     |                                  |                           |
-     | 4. Generate ephemeral keys       |                           |
-     |                                  |                           |
-     | 5. Calculate shared secret       |                           |
-     |                                  |                           |
-     | 6. Encrypt message               |                           |
-     |                                  |                           |
-     | 7. Send initial message          |                           |
-     |--------------------------------->|                           |
-     |                                  |                           |
-     |                                  | 8. Check for messages     |
-     |                                  |<--------------------------|
-     |                                  |                           |
-     |                                  | 9. Initial message        |
-     |                                  |-------------------------->|
-     |                                  |                           |
-     |                                  | 10. Calculate same secret |
-     |                                  |                           |
-     |                                  | 11. Decrypt message       |
-```
 
 ## **How to Run the Demonstration**
 
@@ -189,28 +157,3 @@ GOOS=linux GOARCH=arm64 go build -o alice-arm64 ./cmd/alice
 GOOS=linux GOARCH=arm64 go build -o bob-arm64 ./cmd/bob
 GOOS=linux GOARCH=arm64 go build -o server-arm64 ./cmd/server
 ```
-
-### Cross-compilation for ARM32 (older Pi models)
-
-```bash
-# For Raspberry Pi 3 and earlier (ARM32)
-GOOS=linux GOARCH=arm go build -o alice-arm ./cmd/alice
-GOOS=linux GOARCH=arm go build -o bob-arm ./cmd/bob
-GOOS=linux GOARCH=arm go build -o server-arm ./cmd/server
-```
-
-## **Performance Considerations for MPU Devices**
-
-- **Memory Usage**: ~2-5MB per client (very lightweight)
-- **CPU Usage**: Minimal during idle, spikes during key generation
-- **Network**: Only requires HTTP/HTTPS connectivity
-- **Storage**: ~1KB for private keys per device
-
-## **Future Enhancements**
-
-- [ ] **Multiple OTK Support**: Batch generation and management of one-time keys
-- [ ] **Ratcheting**: Implement Double Ratchet for ongoing conversations
-- [ ] **Persistence**: Database storage for server instead of in-memory
-- [ ] **TLS**: Add HTTPS support for production use
-- [ ] **Device Management**: Web interface for managing multiple devices
-- [ ] **Metrics**: Performance and security metrics collection 
