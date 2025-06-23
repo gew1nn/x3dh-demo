@@ -71,7 +71,7 @@ Bob will download the encrypted message, derive the shared key, and successfully
 - `cmd/bob/`: The command-line client for the responder (Bob).
 - `internal/x3dh/`: Contains the core cryptographic logic for the X3DH protocol and shared data types.
 
-## 🎯 **Target Use Cases**
+## **Target Use Cases**
 
 - **IoT Devices**: Secure communication between sensors and controllers
 - **Edge Computing**: Secure data exchange between edge nodes
@@ -79,7 +79,7 @@ Bob will download the encrypted message, derive the shared key, and successfully
 - **Raspberry Pi Projects**: Secure messaging between Pi devices
 - **Embedded Systems**: Lightweight secure communication protocols
 
-## 🏗️ **Architecture**
+## **Architecture**
 
 The project consists of three independent components:
 
@@ -87,7 +87,7 @@ The project consists of three independent components:
 2.  **Bob (`cmd/bob`)**: A command-line client that represents the "responder." He can `register` his public keys with the server and then `check` for any messages waiting for him.
 3.  **Alice (`cmd/alice`)**: A command-line client that represents the "initiator." She fetches a user's key bundle from the server, computes a shared key, and sends an initial encrypted message to that user via the server.
 
-## 🔐 **Security Features**
+## **Security Features**
 
 - **X25519** for Diffie-Hellman key exchange (curve25519)
 - **Ed25519** for signing and verifying Bob's Signed Pre-key, preventing tampering
@@ -96,7 +96,7 @@ The project consists of three independent components:
 - **Persistent Keys**: Bob's long-term identity keys are saved locally, simulating a real device
 - **Simplified One-Time Pre-key (OTK) Management**: For this demo, Bob generates and registers a single OTK. In a full production system, he would upload a large batch of OTKs
 
-## 📊 **X3DH Protocol Flow**
+## **X3DH Protocol Flow**
 
 ```
 Alice (Initiator)                    Server                    Bob (Responder)
@@ -129,7 +129,7 @@ Alice (Initiator)                    Server                    Bob (Responder)
      |                                  | 11. Decrypt message       |
 ```
 
-## 🚀 **How to Run the Demonstration**
+## **How to Run the Demonstration**
 
 Follow these steps in order across three separate terminal windows.
 
@@ -179,7 +179,7 @@ Bob will contact the server, download the encrypted message Alice left, derive t
 
 You have now completed a full, asynchronous, and secure key exchange! 
 
-## 🔧 **Building for MPU Devices**
+## **Building for MPU Devices**
 
 ### Cross-compilation for Raspberry Pi (ARM64)
 
@@ -199,14 +199,14 @@ GOOS=linux GOARCH=arm go build -o bob-arm ./cmd/bob
 GOOS=linux GOARCH=arm go build -o server-arm ./cmd/server
 ```
 
-## 📈 **Performance Considerations for MPU Devices**
+## **Performance Considerations for MPU Devices**
 
 - **Memory Usage**: ~2-5MB per client (very lightweight)
 - **CPU Usage**: Minimal during idle, spikes during key generation
 - **Network**: Only requires HTTP/HTTPS connectivity
 - **Storage**: ~1KB for private keys per device
 
-## 🔮 **Future Enhancements**
+## **Future Enhancements**
 
 - [ ] **Multiple OTK Support**: Batch generation and management of one-time keys
 - [ ] **Ratcheting**: Implement Double Ratchet for ongoing conversations
