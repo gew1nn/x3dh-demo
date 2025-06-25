@@ -20,14 +20,6 @@ import (
 
 const serverURL = "http://localhost:8080"
 
-// Bundle is the same JSON format Bob uses
-// type Bundle struct {
-// 	IK      string `json:"ik"`
-// 	SPK     string `json:"spk"`
-// 	OTK     string `json:"otk"`
-// 	Ed25519 string `json:"ed25519"`
-// 	Sig     string `json:"sig"`
-// }
 
 // AlicePrivateKeys holds the long-term private key for Alice.
 type AlicePrivateKeys struct {

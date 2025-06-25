@@ -13,26 +13,6 @@ import (
 	"x3dh-demo/internal/x3dh"
 )
 
-// Bundle is the public key bundle a user uploads.
-// This must match the struct used by the clients.
-// type Bundle struct {
-// 	IK      string `json:"ik"`
-// 	SPK     string `json:"spk"`
-// 	OTK     string `json:"otk"`
-// 	Ed25519 string `json:"ed25519"`
-// 	Sig     string `json:"sig"`
-// }
-
-// InitialMessage is the first message sent from an initiator (Alice)
-// to a responder (Bob). It contains the necessary ephemeral keys.
-// type InitialMessage struct {
-// 	AliceIK    string `json:"alice_ik"`
-// 	AliceEKa   string `json:"alice_eka"`
-// 	Nonce      string `json:"nonce"`
-// 	Ciphertext string `json:"ciphertext"`
-// 	Sender     string `json:"sender"`
-// }
-
 var (
 	rdb = redis.NewClient(&redis.Options{
 		Addr: "localhost:6379",
@@ -69,8 +49,8 @@ func NewServerState() *ServerState {
 // updateStats updates server statistics
 func (s *ServerState) updateStats() {
 	s.stats.Uptime = time.Since(s.stats.StartTime)
-	s.stats.ActiveBundles = 0 // Redis implementation needed
-	s.stats.PendingMessages = 0 // Redis implementation needed
+	s.stats.ActiveBundles = 0 
+	s.stats.PendingMessages = 0 // Redis 
 }
 
 // GetStats returns current server statistics

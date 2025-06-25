@@ -20,8 +20,11 @@ The implementation follows the core X3DH flow:
 
 ## Prerequisites
 
-*   **Go** (version 1.20 or newer)
+*   **Go** (version 1.24)
 *   **Redis** (must be running on `localhost:6379`)
+```bash
+docker run -d -p 6379:6379 redis/redis-stack-server:latest
+```
 
 ## How to Run
 

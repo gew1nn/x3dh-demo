@@ -9,8 +9,7 @@ import (
 	"fmt"
 )
 
-// GenKeyPair creates an X25519 key pair and
-// returns (private, public[32], error).
+// GenKeyPair creates an X25519 key pair and returns (private, public[32], error)
 // This function is optimized for MPU devices with limited resources.
 func GenKeyPair() (*ecdh.PrivateKey, [32]byte, error) {
 	priv, err := ecdh.X25519().GenerateKey(rand.Reader)
@@ -22,9 +21,6 @@ func GenKeyPair() (*ecdh.PrivateKey, [32]byte, error) {
 	return priv, pub32, nil
 }
 
-// DH performs X25519 Diffie-Hellman key exchange.
-// priv - private key, pub32 - public key as [32]byte.
-// Returns the shared secret as [32]byte and error.
 func DH(priv *ecdh.PrivateKey, pub32 *[32]byte) (out [32]byte, err error) {
 	if priv == nil {
 		return out, fmt.Errorf("private key is nil")
@@ -41,8 +37,6 @@ func DH(priv *ecdh.PrivateKey, pub32 *[32]byte) (out [32]byte, err error) {
 	return out, nil
 }
 
-// KDF (Key Derivation Function) computes SHA-256 of the concatenation of all DH values.
-// This implements the X3DH key derivation as specified in the protocol.
 func KDF(parts ...[32]byte) (out [32]byte) {
 	h := sha256.New()
 	for _, p := range parts {

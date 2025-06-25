@@ -19,23 +19,7 @@ import (
 
 const serverURL = "http://localhost:8080"
 
-// Bundle is the same JSON format as Alice's, plus Ed25519
-// type Bundle struct {
-// 	IK      string `json:"ik"`          // Identity-Key    (pub)
-// 	SPK     string `json:"spk"`         // Signed-PreKey   (pub)
-// 	OTK     string `json:"otk"`         // One-Time-PreKey (pub)
-// 	EKa     string `json:"eka,omitempty"`// Ephemeral-Key   (pub) – from Alice
-// 	Ed25519 string `json:"ed25519"`     // Ed25519 public key (hex)
-// 	Sig     string `json:"sig"`         // Signature of SPK by Ed25519 (hex)
-// }
 
-// InitialMessage is the first message from an initiator.
-// type InitialMessage struct {
-// 	AliceIK    string `json:"alice_ik"`
-// 	AliceEKa   string `json:"alice_eka"`
-// 	Nonce      string `json:"nonce"`
-// 	Ciphertext string `json:"ciphertext"`
-// }
 
 // BobPrivateKeys holds the long-term private keys for Bob.
 type BobPrivateKeys struct {
@@ -60,7 +44,6 @@ func decode32(s string) (out [32]byte) {
 	return
 }
 
-// loadEd25519PrivateKey converts []byte to ed25519.PrivateKey
 func loadEd25519PrivateKey(keyBytes []byte) ed25519.PrivateKey {
 	if len(keyBytes) != ed25519.PrivateKeySize {
 		panic("invalid Ed25519 private key size")
